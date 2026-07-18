@@ -7,6 +7,7 @@ import jobRoutes from "./routes/jobRoutes";
 import session from "express-session";
 import passport from "./config/passport";
 import reviewRoutes from "./routes/reviewRoutes";
+import applicationRoutes from "./routes/applicationRoutes";
 
 dotenv.config();
 
@@ -18,7 +19,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
-+app.use("/api/reviews", reviewRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/applications", applicationRoutes);
 
 const PORT = process.env.PORT || 5000;
 
