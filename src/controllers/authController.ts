@@ -72,8 +72,10 @@ export async function refresh(req: Request, res: Response) {
 
   try {
     const payload = verifyRefreshToken(token);
+    const user = await User.findById(payload.userId);
+    if (!user) return res.status(401).json({ error: "user no longer exists" });
     const newAccessToken = signAccessToken(payload.userId);
-    res.json({ accessToken: newAccessToken });
+    res.json({ accessToken: newAccessToken, user: sanitize(user) });
   } catch {
     res.status(401).json({ error: "invalid or expired refresh token" });
   }
