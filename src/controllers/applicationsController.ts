@@ -44,19 +44,26 @@ export async function createApplication(req: AuthedRequest, res: Response) {
       .json({ error: `status must be one of ${VALID_STATUSES.join(", ")}` });
   }
 
-  const application = await Application.create({
-    userId: req.userId,
-    jobTitle: jobTitle.trim(),
-    company: company.trim(),
-    companyLogoUrl,
-    notes,
-    shortNote,
-    dateApplied: dateApplied ? new Date(dateApplied) : undefined,
-    status: status ?? "saved",
-    externalJobId,
-  });
+try {
+    const application = await Application.create({
+      userId: req.userId,
+      jobTitle: jobTitle.trim(),
+      company: company.trim(),
+      companyLogoUrl,
+      notes,
+      shortNote,
+      dateApplied: dateApplied ? new Date(dateApplied) : undefined,
+      status: status ?? "saved",
+      externalJobId,
+    });
 
-  res.status(201).json(application);
+    res.status(201).json(application);
+  } catch (err) {
+    if ((err as { code?: number }).code === 11000) {
+      return res.status(409).json({ error: "You've already saved this job" });
+    }
+    res.status(500).json({ error: "Failed to create application" });
+  }
 }
 
 export async function updateApplication(req: AuthedRequest, res: Response) {

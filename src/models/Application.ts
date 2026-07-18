@@ -42,4 +42,9 @@ const ApplicationSchema = new Schema<IApplication>({
   createdAt: { type: Date, default: Date.now },
 });
 
+ApplicationSchema.index(
+  { userId: 1, externalJobId: 1 },
+  { unique: true, sparse: true },
+);
+
 export default mongoose.model<IApplication>("Application", ApplicationSchema);
