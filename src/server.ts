@@ -8,10 +8,12 @@ import session from "express-session";
 import passport from "./config/passport";
 import reviewRoutes from "./routes/reviewRoutes";
 import applicationRoutes from "./routes/applicationRoutes";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({ secret: process.env.SESSION_SECRET!, resave: false, saveUninitialized: false }));
