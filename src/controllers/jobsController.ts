@@ -27,9 +27,7 @@ export async function listJobs(req: Request, res: Response) {
     const result = await searchJobs(params);
     res.json(result);
   } catch (err) {
-    res
-      .status(502)
-      .json({ error: "Failed to fetch jobs", detail: (err as Error).message });
+    res.status(502).json({ error: "Failed to fetch jobs", detail: (err as Error).message });
   }
 }
 
@@ -42,8 +40,7 @@ export async function getJob(req: Request, res: Response) {
   if (!job) {
     return res.status(404).json({
       error: "Job listing not found or expired",
-      detail:
-        "This listing wasn't in a recent search result. It may no longer be available.",
+      detail: "This listing wasn't in a recent search result. It may no longer be available.",
     });
   }
   res.json(job);
