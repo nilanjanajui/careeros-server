@@ -17,7 +17,6 @@ import cors from "cors";
 const app = express();
 app.set('trust proxy', 1);
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
-app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
