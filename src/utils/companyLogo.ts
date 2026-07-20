@@ -5,11 +5,7 @@
  * ui-avatars initials URL on <img onError>, not trust this as authoritative.
  */
 export function getPrimaryLogoUrl(companyName: string): string {
-  const domainGuess = companyName
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "")
-    .trim();
-  return `https://logo.clearbit.com/${domainGuess}.com`;
+  return getFallbackLogoUrl(companyName);
 }
 
 export function getFallbackLogoUrl(companyName: string): string {
