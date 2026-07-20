@@ -24,6 +24,10 @@ const SEARCH_JOBS_TOOL: ToolDefinition = {
           type: "string",
           description: "Location, e.g. a city or 'remote'",
         },
+        country: {
+          type: "string",
+          description: "2-letter country code (e.g. 'us', 'gb', 'de'). Default to 'us' if unknown.",
+        },
         category: { type: "string", description: "Optional job category" },
       },
       required: ["what"],
@@ -62,6 +66,8 @@ User profile:
 - Preferred locations: ${user.preferredLocations.join(", ") || "not specified"}
 ${user.resumeText ? `- Resume summary: ${user.resumeText.slice(0, 1500)}` : ""}
 ${interactionNotes}
+
+CRITICAL: When calling search_jobs, if the user specifies a location outside the US (like 'Berlin' or 'London'), you MUST provide the correct 2-letter 'country' code parameter (e.g. 'de' for Germany, 'gb' for UK, 'ca' for Canada, 'au' for Australia, etc.). Valid codes include: us, gb, at, au, br, ca, de, fr, in, it, nl, nz, pl, ru, sg, za. If you search for Berlin without setting country='de', you will get 0 results.
 
 Once you have enough candidate jobs, STOP calling tools and respond with ONLY a JSON object (no markdown fences, no other text) in this exact shape:
 {"recommendations": [{"jobId": "<the id field from a search result>", "fitScore": <0-100 integer>, "reasoning": "<one sentence, specific to this job and this user>"}]}
@@ -109,7 +115,7 @@ export async function runRecommendationAgent(
       messages.push(message);
 
       for (const toolCall of message.tool_calls) {
-        let args: { what?: string; where?: string; category?: string } = {};
+        let args: { what?: string; where?: string; category?: string; country?: string } = {};
         try {
           args = JSON.parse(toolCall.function.arguments);
         } catch {
@@ -119,6 +125,7 @@ export async function runRecommendationAgent(
         const result = await searchJobs({
           what: args.what,
           where: args.where,
+          country: args.country,
           category: args.category,
           resultsPerPage: 10,
         });

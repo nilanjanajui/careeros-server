@@ -21,6 +21,7 @@ export interface JobSearchParams {
   category?: string;
   salaryMin?: number;
   sortBy?: "date" | "salary" | "relevance";
+  country?: string; // 2-letter country code
   page?: number; // 1-indexed
   resultsPerPage?: number;
 }

@@ -54,7 +54,7 @@ export async function searchJobs(
 ): Promise<JobSearchResult> {
   const appId = requireEnv("ADZUNA_APP_ID");
   const appKey = requireEnv("ADZUNA_APP_KEY");
-  const country = process.env.ADZUNA_COUNTRY ?? "us";
+  const country = params.country ?? process.env.ADZUNA_COUNTRY ?? "us";
   const page = params.page ?? 1;
   const resultsPerPage = params.resultsPerPage ?? 20;
 
