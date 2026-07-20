@@ -9,7 +9,7 @@ dotenv.config();
 
 const DEMO_EMAIL = "demo@careeros.app";
 
-const DEMO_RESUME = `Frontend-leaning full stack developer with 4 years of experience building React/Node applications. Led the migration of a legacy jQuery dashboard to a React + TypeScript stack at my last role, cutting page load time by roughly a third. Comfortable across the stack — REST APIs in Node/Express, MongoDB schema design, and CI/CD with GitHub Actions. Most recently shipped a real-time notifications feature end to end, from WebSocket server to frontend UI. Looking for a role where I can keep working close to the product, ideally on a small team.`;
+const DEMO_RESUME = `Results-driven Full Stack and MERN Developer with 4 years of experience building scalable web applications. Proficient in React, Node.js, Express, and MongoDB. Led the migration of a legacy dashboard to a modern MERN stack at my last role, cutting page load time by 40% and improving overall system architecture. Comfortable across the stack — designing REST APIs, managing database schemas, and building responsive UI with React and Tailwind CSS. Looking for a full-stack, MERN, or frontend role on a fast-paced product team.`;
 
 const DEMO_APPLICATIONS: {
   jobTitle: string;
@@ -18,44 +18,26 @@ const DEMO_APPLICATIONS: {
   shortNote?: string;
   daysAgo: number;
 }[] = [
-  {
-    jobTitle: "Senior Frontend Engineer",
-    company: "Vercel",
-    status: "interview",
-    shortNote: "Referred by a former coworker",
-    daysAgo: 3,
-  },
-  {
-    jobTitle: "Full Stack Developer",
-    company: "Linear",
-    status: "applied",
-    daysAgo: 6,
-  },
-  {
-    jobTitle: "Frontend Engineer, Growth",
-    company: "Notion",
-    status: "offer",
-    shortNote: "Waiting to hear back on comp",
-    daysAgo: 14,
-  },
-  {
-    jobTitle: "React Developer",
-    company: "Stripe",
-    status: "rejected",
-    daysAgo: 20,
-  },
-  {
-    jobTitle: "Software Engineer",
-    company: "Figma",
-    status: "saved",
-    daysAgo: 1,
-  },
-  {
-    jobTitle: "Product Engineer",
-    company: "Retool",
-    status: "applied",
-    daysAgo: 9,
-  },
+  { jobTitle: "Senior Frontend Engineer", company: "Vercel", status: "interview", shortNote: "Referred by a former coworker", daysAgo: 3 },
+  { jobTitle: "Full Stack Developer", company: "Linear", status: "applied", daysAgo: 6 },
+  { jobTitle: "Frontend Engineer, Growth", company: "Notion", status: "offer", shortNote: "Waiting to hear back on comp", daysAgo: 14 },
+  { jobTitle: "React Developer", company: "Stripe", status: "rejected", daysAgo: 20 },
+  { jobTitle: "Software Engineer", company: "Figma", status: "saved", daysAgo: 1 },
+  { jobTitle: "Product Engineer", company: "Retool", status: "applied", daysAgo: 9 },
+  { jobTitle: "MERN Stack Developer", company: "MongoDB", status: "interview", daysAgo: 2 },
+  { jobTitle: "Full Stack Engineer", company: "Supabase", status: "applied", daysAgo: 5 },
+  { jobTitle: "Frontend Developer", company: "Raycast", status: "rejected", daysAgo: 25 },
+  { jobTitle: "Web Developer", company: "Shopify", status: "saved", daysAgo: 0 },
+  { jobTitle: "React Native Engineer", company: "Discord", status: "applied", daysAgo: 11 },
+  { jobTitle: "Node.js Developer", company: "Netflix", status: "rejected", daysAgo: 30 },
+  { jobTitle: "Senior MERN Engineer", company: "Atlassian", status: "interview", daysAgo: 7 },
+  { jobTitle: "Full Stack Developer", company: "GitHub", status: "applied", daysAgo: 15 },
+  { jobTitle: "UI Engineer", company: "Apple", status: "saved", daysAgo: 2 },
+  { jobTitle: "Frontend Developer", company: "Spotify", status: "offer", shortNote: "Great team!", daysAgo: 18 },
+  { jobTitle: "Software Engineer II", company: "Microsoft", status: "rejected", daysAgo: 40 },
+  { jobTitle: "MERN Stack Dev", company: "Airbnb", status: "applied", daysAgo: 4 },
+  { jobTitle: "Full Stack (React/Node)", company: "Slack", status: "interview", daysAgo: 8 },
+  { jobTitle: "Web Engineer", company: "Canva", status: "applied", daysAgo: 12 },
 ];
 
 async function seed() {
@@ -76,9 +58,9 @@ async function seed() {
     console.log("Demo user already exists — updating profile fields.");
   }
 
-  user.skills = ["JavaScript", "TypeScript", "React", "Node.js", "MongoDB"];
+  user.skills = ["JavaScript", "TypeScript", "React", "Node.js", "Express", "MongoDB", "Tailwind CSS"];
   user.experienceLevel = "mid";
-  user.preferredRoles = ["Frontend Developer", "Full Stack Developer"];
+  user.preferredRoles = ["Full Stack Developer", "MERN Stack Developer", "Frontend Developer"];
   user.preferredLocations = ["Remote", "Berlin"];
   user.resumeText = DEMO_RESUME;
   await user.save();
