@@ -9,6 +9,7 @@ import passport from "./config/passport";
 import reviewRoutes from "./routes/reviewRoutes";
 import applicationRoutes from "./routes/applicationRoutes";
 import profileRoutes from "./routes/profileRoutes";
+import recommendationRoutes from "./routes/recommendationRoutes";
 
 import cors from "cors";
 
@@ -32,6 +33,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/recommendations", recommendationRoutes);
 
 app.use(
   (
