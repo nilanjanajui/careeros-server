@@ -65,28 +65,23 @@ async function seed() {
   user.resumeText = DEMO_RESUME;
   await user.save();
 
-  const existingApplicationCount = await Application.countDocuments({
-    userId: user._id,
-  });
-  if (existingApplicationCount === 0) {
-    await Application.insertMany(
-      DEMO_APPLICATIONS.map((app) => ({
-        userId: user._id,
-        jobTitle: app.jobTitle,
-        company: app.company,
-        status: app.status,
-        shortNote: app.shortNote,
-        dateApplied:
-          app.status === "saved"
-            ? undefined
-            : new Date(Date.now() - app.daysAgo * 24 * 60 * 60 * 1000),
-        createdAt: new Date(Date.now() - app.daysAgo * 24 * 60 * 60 * 1000),
-      })),
-    );
-    console.log(`Seeded ${DEMO_APPLICATIONS.length} demo applications.`);
-  } else {
-    console.log("Demo user already has applications — leaving them as-is.");
-  }
+  await Application.deleteMany({ userId: user._id });
+  await Application.insertMany(
+    DEMO_APPLICATIONS.map((app) => ({
+      userId: user._id,
+      jobTitle: app.jobTitle,
+      company: app.company,
+      status: app.status,
+      shortNote: app.shortNote,
+      externalJobId: `demo_${Math.random().toString(36).substr(2, 9)}`,
+      dateApplied:
+        app.status === "saved"
+          ? undefined
+          : new Date(Date.now() - app.daysAgo * 24 * 60 * 60 * 1000),
+      createdAt: new Date(Date.now() - app.daysAgo * 24 * 60 * 60 * 1000),
+    })),
+  );
+  console.log(`Seeded ${DEMO_APPLICATIONS.length} demo applications (replaced old ones).`);
 
   const existingReview = await CompanyReview.findOne({ userId: user._id });
   if (!existingReview) {
