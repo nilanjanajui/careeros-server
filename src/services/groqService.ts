@@ -39,6 +39,7 @@ function requireApiKey(): string {
 export async function chatCompletion(
   messages: ChatMessage[],
   tools?: ToolDefinition[],
+  temperature = 0.3,
 ): Promise<ChatMessage> {
   const res = await fetch(GROQ_URL, {
     method: "POST",
@@ -50,7 +51,7 @@ export async function chatCompletion(
       model: MODEL,
       messages,
       ...(tools ? { tools, tool_choice: "auto" } : {}),
-      temperature: 0.3,
+      temperature,
     }),
   });
 
