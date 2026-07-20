@@ -1,5 +1,5 @@
+import "dotenv/config";
 import express = require("express");
-import dotenv = require("dotenv");
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes";
@@ -13,8 +13,6 @@ import recommendationRoutes from "./routes/recommendationRoutes";
 import contentGeneratorRoutes from "./routes/contentGeneratorRoutes";
 
 import cors from "cors";
-
-dotenv.config();
 
 const app = express();
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
