@@ -42,9 +42,16 @@ const ApplicationSchema = new Schema<IApplication>({
   createdAt: { type: Date, default: Date.now },
 });
 
+// Prevents the same user saving the same external job twice. Using
+// partialFilterExpression rather than sparse: true — sparse on a COMPOUND
+// index only excludes a document if EVERY indexed field is missing. Since
+// userId is always present, sparse never actually excluded anything here,
+// and every application without an externalJobId collided on (userId, null).
+// partialFilterExpression correctly scopes the unique constraint to only
+// documents where externalJobId genuinely exists.
 ApplicationSchema.index(
   { userId: 1, externalJobId: 1 },
-  { unique: true, sparse: true },
+  { unique: true, partialFilterExpression: { externalJobId: { $exists: true } } },
 );
 
 export default mongoose.model<IApplication>("Application", ApplicationSchema);
